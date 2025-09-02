@@ -25,4 +25,27 @@ fetch(`https://viacep.com.br/ws/${cepInformado}/json/`)
     .catch(error => console.error("Erro ao buscar o CEP", error));
 
 })
+// Ao carregar a página, restaurar os dados do localStorage
+document.addEventListener("DOMContentLoaded", () => {
+    const campos = ["cep", "logradouro", "bairro", "cidade", "estado", "numero"];
+
+    campos.forEach(campo => {
+        const valorSalvo = localStorage.getItem(campo);
+        if (valorSalvo) {
+            document.getElementById(campo).value = valorSalvo;
+        }
+    });
+});
+
+// Ao clicar em "Cadastrar", salvar os dados no localStorage
+document.getElementById("btnCadastrar").addEventListener("click", () => {
+    const campos = ["cep", "logradouro", "bairro", "cidade", "estado", "numero"];
+
+    campos.forEach(campo => {
+        const valor = document.getElementById(campo).value;
+        localStorage.setItem(campo, valor);
+    });
+
+    alert("Dados salvos com sucesso!");
+});
 
